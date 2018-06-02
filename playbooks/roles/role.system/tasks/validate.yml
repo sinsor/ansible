@@ -1,0 +1,3 @@
+- name: validate | backup disk
+  validate_backup_disk: configured_disk="{{ backup_disk }}"
+  when: backup_disk is defined

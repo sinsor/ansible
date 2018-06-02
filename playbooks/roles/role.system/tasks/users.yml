@@ -1,0 +1,10 @@
+- name: add users
+  user:
+    name: '{{ item.name }}'
+    group: '{{ item.group | default(item.name) }}'
+    groups: '{{ item.groups | default("") }}'
+    password: '{{ item.password | default("") }}'
+    comment: '{{ item.comment | default("") }}'
+    home: '{{ item.home | default("/home/" + item.name) }}'
+  with_items:
+    - '{{ users }}'

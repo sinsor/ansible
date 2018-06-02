@@ -1,0 +1,23 @@
+- name: set up remoteansible user and keys on all hosts
+  hosts: all
+  gather_facts: no
+
+  vars:
+    user_remote: remoteansible
+
+  tasks:
+    - name: add remote user group
+      group: name={{ user_remote }} state=present
+
+    - name: add remote user
+      user: name={{ user_remote }} state=present group={{ user_remote }} comment="Remote ansible user"
+
+    - name: authorized key
+      authorized_key: user={{ user_remote }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: create sudoers file if does does not exist
+      copy: content="" dest="/etc/sudoers" force=no group=root owner=root mode=0440
+
+    - name: add remote user to sudo
+      lineinfile: "path=/etc/sudoers regexp='^%{{ user_remote }} ALL' line='%{{ user_remote }} ALL=(ALL) NOPASSWD: ALL' state=present"
+

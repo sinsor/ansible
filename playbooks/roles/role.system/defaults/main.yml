@@ -1,0 +1,10 @@
+default_password: $6$LCs88dYM$cZk9VUmcbAhEi83HwZDN7wUOT1qygdFUWa/yWky8GSX62S29C7yz6CtoRZCf96tkHVDOw56KxI3iiI2/o0TVp1
+
+user_groups:
+  - sysadm
+
+users:
+  - name: sysadm
+    group: sysadm
+    comment: "System administrator"
+    password: "{{ default_password }}"

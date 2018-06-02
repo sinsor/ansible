@@ -1,0 +1,5 @@
+[testservers]
+instance1	ansible_host=10.30.3.11
+instance2	ansible_host=10.30.3.12
+instance3	ansible_host=10.30.3.13
+instance4	ansible_host=10.30.3.14

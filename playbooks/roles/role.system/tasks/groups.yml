@@ -1,0 +1,4 @@
+- name: add user groups
+  group: name={{ item }}
+  with_items:
+    - '{{ user_groups }}'
