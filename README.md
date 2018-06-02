@@ -1,3 +1,4 @@
 # ansible
-elma
+elma\n
 armut
+kiraz
