@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 import re
+from ansible.module_utils.basic import *
+
 
 def main():
     module = AnsibleModule(
@@ -21,5 +23,6 @@ def main():
     else:
         module.fail_json(msg="The parameter backup_disk has no value defined")
 
-from ansible.module_utils.basic import *
-main()
+
+if __name__ == '__main__':
+    main()
