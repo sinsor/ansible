@@ -4,11 +4,15 @@
 - include_tasks: hostname.yml
   tags: hostname
 
+- include_tasks: hosts.yml
+  tags: hosts
+
 - include_tasks: groups.yml
   tags: groups
 
 - include_tasks: users.yml
   tags: users
 
-- include_tasks: hosts.yml
-  tags: hosts
+- include_tasks: backupdisk.yml
+  tags: backupdisk
+  when: backup_disk is defined
