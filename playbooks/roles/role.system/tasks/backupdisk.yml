@@ -1,31 +1,28 @@
-volume_group: backupvg
-logical_volume: backuplv
-mount_point: /db_backup
-
+---
 - name: Check mount point
-  stat: path={{ mp }}
+  stat: path={{ item.mount_point }}
   register: stats
 
 - name: Check that if mount point already exists or not.
-  fail: msg="{{ mp }} already exists. Remove it and re-run."
+  fail: msg="{{ item.mount_point }} already exists. Remove it and re-run."
   when: stats.stat.exists
 
 - name: Create physical volume on selected disk or partition
   command: pvcreate -ffy {{ backup_disk }}
 
 - name: Create volume group
-  command: vgcreate {{ volume_group }} {{ backup_disk }}
+  command: vgcreate {{ item.volume_group }} {{ backup_disk }}
 
 - name: Create logical volume
-  command: lvcreate -n {{ logical_volume }} -l 100%FREE {{ vg }}
+  command: lvcreate -n {{ item.logical_volume }} -l 100%FREE {{ item.volume_group }}
 
 - name: Create filesystem
-  command: mkfs.ext4 -T largefile /dev/mapper/{{ volume_group }}-{{ logical_volume }}
+  command: mkfs.ext4 -T largefile /dev/mapper/{{ item.volume_group }}-{{ item.logical_volume }}
 
 - name: Mount and update /etc/fstab
   mount:
-    name: "{{ mount_point }}"
-    src: /dev/mapper/{{ volume_group }}-{{ logical_volume }}
+    name: "{{ item.mount_point }}"
+    src: /dev/mapper/{{ item.volume_group }}-{{ item.logical_volume }}
     fstype: ext4
     passno: 2
     state: mounted

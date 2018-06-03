@@ -1,0 +1,8 @@
+#
+# variables for backup disk
+#
+backup_disk_default:
+  - volume_group: backupvg
+    logical_volume: backuplv
+    mount_point: /db_backup
+

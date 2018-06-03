@@ -1,1 +1,1 @@
-backup_disk: /dev/sdd
+backup_disk: /dev/vdb

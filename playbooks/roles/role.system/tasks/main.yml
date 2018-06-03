@@ -13,6 +13,12 @@
 - include_tasks: users.yml
   tags: users
 
+- include_tasks: packages.yml
+  tags: packages
+
 - include_tasks: backupdisk.yml
   tags: backupdisk
+  with_items:
+    - '{{ backup_disk_default }}'
   when: backup_disk is defined
+

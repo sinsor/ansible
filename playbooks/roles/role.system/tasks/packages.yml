@@ -1,0 +1,5 @@
+- name: installing lvm
+  yum:
+    name: lvm2
+    state: latest
+
